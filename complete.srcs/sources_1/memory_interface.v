@@ -62,7 +62,7 @@ module memory_interface (
 				8'h71: serial2_cs_n = 0;
 				8'h72: timer_cs_n = 0;
 				8'h73: parallel_cs_n = 0;
-				8'h74: aux1_cs_n = 0;
+				8'h74: aux1_cs_n = 0; //not implimented 
 				8'h75: aux2_cs_n = 0;
 				8'h7f: sys_cs_n = 0;
 			endcase

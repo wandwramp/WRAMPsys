@@ -97,6 +97,8 @@ module control_unit (
 	parameter interrupt_take_vector = 26;
 	parameter return_from_exception = 27;
 	parameter halt 					= 31;
+	parameter fetch_memcheck_post   = 32;
+	parameter memop_memcheck_post   = 33;
 
 	//instruction parts
 	wire [ 3:0] opcode 	   = instruction_reg[31:28];
@@ -107,7 +109,7 @@ module control_unit (
 	wire [15:0] immediate  = instruction_reg[15: 0];
 	wire [19:0] address    = instruction_reg[19: 0];
 
-	reg [4:0] current_state, next_state;
+	reg [5:0] current_state, next_state;
 	//declaration end
 
 	//This is the output logic for the state machine
@@ -169,12 +171,23 @@ module control_unit (
 				//Use the PC
 				pc_out <= 1;
 				//Check the validity of this memory access
-				check_mem <= 1;
+				//check_mem <= 1;				
 			end
+			
+			fetch_memcheck_post : begin
+                //Do a memory read
+                mem_read <= 1;
+                //Use the PC
+                pc_out <= 1;
+                //Check the validity of this memory access
+                check_mem <= 1;
+            end
+			
 	
-			insn_fetch : begin
+			insn_fetch : begin			    
 				//We want to do a memory read
 				//We set the address to the PC, and wait for the ram to fetch it
+				mem_read <= 1;
 				pc_out <= 1;
 				//We also want to increment the icount register
 				inc_icount <= 1;
@@ -288,6 +301,15 @@ module control_unit (
 				//Store the result into the temp register
 				temp_in <= 1;
 			end
+			
+			memop_memcheck_post : begin
+                //Use the effective address
+                temp_out <= 1;
+                //Check the memory protection table
+                mem_read <= 1;
+                //Tell the memory protection unit to check
+                check_mem <= 1;
+            end
 
 			memop_memcheck : begin
 				//Use the effective address
@@ -295,8 +317,10 @@ module control_unit (
 				//Check the memory protection table
 				mem_read <= 1;
 				//Tell the memory protection unit to check
-				check_mem <= 1;
+                check_mem <= 1;
 			end
+			
+			
 
 			do_memory_op : begin
 				//Output the address
@@ -618,8 +642,12 @@ module control_unit (
 				if (memory_violation == 1 && kernel_mode == 0) begin
 					next_state <= gpf_exception;
 				end else begin
-					next_state <= insn_fetch;
+					next_state <= fetch_memcheck_post;
 				end
+			end
+			
+			fetch_memcheck_post : begin
+			    next_state <= insn_fetch;
 			end
 
 			insn_fetch : begin
@@ -758,10 +786,14 @@ module control_unit (
 			//Memory operations (lw, sw)
 			eff_add_comp : begin
 				if (kernel_mode == 0) begin
-					next_state <= memop_memcheck;
+					next_state <= memop_memcheck_post;
 				end else begin
 					next_state <= do_memory_op;
 				end
+			end
+			
+			memop_memcheck_post : begin
+			    next_state <= memop_memcheck;
 			end
 
 			memop_memcheck : begin
