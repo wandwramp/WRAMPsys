@@ -53,11 +53,7 @@ module memory_interface (
 		
 		if (mem_read || mem_write) begin
 			casez (address_bus[19:12])
-				8'b1???????: begin
-					if (mem_read || ~rom_lock)
-						rom_cs_n = 0;
-				end
-				8'b000?????: ram_cs_n = 0; //enable the particular module the address is pointing to
+				8'b000000??: ram_cs_n = 0; //enable the particular module the address is pointing to
 				8'h70: serial1_cs_n = 0;
 				8'h71: serial2_cs_n = 0;
 				8'h72: timer_cs_n = 0;
@@ -65,6 +61,10 @@ module memory_interface (
 				8'h74: aux1_cs_n = 0; //not implimented 
 				8'h75: aux2_cs_n = 0;
 				8'h7f: sys_cs_n = 0;
+				8'b1???????: begin
+                    if (mem_read || ~rom_lock)
+                        rom_cs_n = 0;
+                end
 			endcase
 		end
 	end

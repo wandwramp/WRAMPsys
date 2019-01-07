@@ -60,7 +60,7 @@ module parallel_interface(
 	    led_out_hardware = 0;
 	    index = 0;
 	    scaler = 0;
-	    control = 0;
+	    control = 1;
 	    ssd_values[0] = 0;
 	    ssd_values[1] = 0;
 	    ssd_values[2] = 0;

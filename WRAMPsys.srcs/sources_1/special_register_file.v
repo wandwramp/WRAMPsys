@@ -56,7 +56,8 @@ module special_register_file (
 			register[CCOUNT_REGNO]   = 32'b0;
 			register[IVEC_REGNO]     = 32'b0;
 			register[IAR_REGNO]      = 32'b0;
-			register[ESP_REGNO]      = 32'b0;
+			register[ESP_REGNO]      = 32'b0; 	//was supposed to be an exception stack pointer
+												//was never implimented/not needed (exc can use normal stack)
 			register[ERS_REGNO]      = 32'b0;
 			register[WPTABLE_REGNO]  = 32'b0;
 			register[USERBASE_REGNO] = 32'b0;

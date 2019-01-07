@@ -25,8 +25,8 @@ module ram(
 
 	// Load some data as an initial program in RAM.
 	// This uses files created by Trim on an srec.
-	parameter filename = "test.mem";	//add test.mem as a source in vivado
-	initial $readmemh(filename, ram); 
+	//parameter filename = "test.mem";	//add test.mem as a source in vivado
+	//initial $readmemh(filename, ram); 
 	//FOR DEBUGGING ONLY DO NOT BUILD WITH THIS SETTING
 
 	// This gets inferred into block RAM by the Vivado synthesis tool.
