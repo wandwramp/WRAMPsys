@@ -84,7 +84,7 @@ module parallel_interface(
 	always @(posedge clk) begin
 		if (!rst_n) begin
 		    data = 0;
-		    control = 0;
+		    control = 1;
 		    int_ack = 0;
 		    led_out_hardware = 0;
 		    ssd_values[0] = 0;
