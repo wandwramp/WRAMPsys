@@ -53,7 +53,7 @@ module memory_interface (
 		
 		if (mem_read || mem_write) begin
 			casez (address_bus[19:12])
-				8'b000000??: ram_cs_n = 0; //enable the particular module the address is pointing to
+				8'b000000??: ram_cs_n = 0; //enable the particular module the address is pointing to (address < 0x3FFF)
 				8'h70: serial1_cs_n = 0;
 				8'h71: serial2_cs_n = 0;
 				8'h72: timer_cs_n = 0;

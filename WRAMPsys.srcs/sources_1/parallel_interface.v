@@ -49,7 +49,7 @@ module parallel_interface(
     reg [7:0] SSDout;
     
     assign an = anode;
-    assign seg = hex_decode ? SSDhex : ~SSDraw; //either hex decode to the SSD or use raw values 
+    assign seg = hex_decode ? SSDhex : ~SSDraw[7:0]; //either hex decode to the SSD or use raw values 
 
 	reg [31:0] data;
 	assign data_bus = read_enable ? data : 32'hzzzzzzzz;
@@ -165,22 +165,22 @@ module parallel_interface(
 	    endcase
 	            
 	    case (SSDraw[3:0])						//SSD hex decode table
-	        4'h0: SSDhex = 8'b10000001; //0
-	        4'h1: SSDhex = 8'b11001111; //1
-	        4'h2: SSDhex = 8'b10010010; //2
-	        4'h3: SSDhex = 8'b10000110; //3
-	        4'h4: SSDhex = 8'b11001100; //4
-	        4'h5: SSDhex = 8'b10100100; //5
-	        4'h6: SSDhex = 8'b10100000; //6
-	        4'h7: SSDhex = 8'b10001111; //7
+	        4'h0: SSDhex = 8'b11000000; //0
+	        4'h1: SSDhex = 8'b11111001; //1
+	        4'h2: SSDhex = 8'b10100100; //2
+	        4'h3: SSDhex = 8'b10110000; //3
+	        4'h4: SSDhex = 8'b10011001; //4
+	        4'h5: SSDhex = 8'b10010010; //5
+	        4'h6: SSDhex = 8'b10000010; //6
+	        4'h7: SSDhex = 8'b11111000; //7
 	        4'h8: SSDhex = 8'b10000000; //8
-	        4'h9: SSDhex = 8'b10000100; //9
+	        4'h9: SSDhex = 8'b10010000; //9
 	        4'hA: SSDhex = 8'b10001000; //A
-	        4'hB: SSDhex = 8'b11100000; //B
-	        4'hC: SSDhex = 8'b10110001; //C
-	        4'hD: SSDhex = 8'b11000010; //D
-	        4'hE: SSDhex = 8'b10110000; //E
-	        4'hF: SSDhex = 8'b10111000; //F  
+	        4'hB: SSDhex = 8'b10000011; //B
+	        4'hC: SSDhex = 8'b11000110; //C
+	        4'hD: SSDhex = 8'b10100001; //D
+	        4'hE: SSDhex = 8'b10000110; //E
+	        4'hF: SSDhex = 8'b10001110; //F  
 	    endcase
 	    
 	    case(index)								//SSD is active low
