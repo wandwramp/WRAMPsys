@@ -15,4 +15,4 @@ WRAMPsys.xpr can be opened with the Vivado design suite.
 ## Building
 
 The Vivado design suite is used to build the .bin/.bit files, which then can be
-either uploaded to the Basys3 board or flash the internal memory.
+either uploaded to the Basys3 board or used to flash the internal memory.
