@@ -141,9 +141,9 @@ set_property PACKAGE_PIN A18 [get_ports Tx1]
 
 # Pmod Header JB
 # Top-right Pmod expansion port (Serial port 2)    
-set_property PACKAGE_PIN N17 [get_ports Rx2]                        
+set_property PACKAGE_PIN H2 [get_ports Rx2]                        
    set_property IOSTANDARD LVCMOS33 [get_ports Rx2]
-set_property PACKAGE_PIN M18 [get_ports Tx2]
+set_property PACKAGE_PIN K2 [get_ports Tx2]
    set_property IOSTANDARD LVCMOS33 [get_ports Tx2]
 
 
