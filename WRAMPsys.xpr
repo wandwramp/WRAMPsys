@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="38" Path="/home/tjkm1/Public/vwramp-condensed/vivadoProject/complete.xpr">
+<Project Version="7" Minor="38" Path="complete.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="6b6f474e3a104fa496b018eb2e79a70a"/>
