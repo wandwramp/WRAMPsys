@@ -3,3 +3,5 @@ WRAMPsys.hw/*
 WRAMPsys.runs/*
 WRAMPsys.sim/*
 WRAMPsys.xpr
+WRAMPsys.srcs/sources_1/bd/*
+WRAMPsys.ip_user_files/*
