@@ -45,14 +45,12 @@ module instruction_register (
 		end
 	end
 
-	always @(posedge clk, negedge rst_n) begin
+	always @(posedge clk) begin
 		if (!rst_n) begin
 			ir_register = 32'b0;
 		end
-		else if (clk) begin
-			if (write_enable) begin				//update ir with new ins
-				ir_register = write_data;
-			end
+        if (write_enable) begin				//update ir with new ins
+            ir_register = write_data;
 		end
 	end
 
