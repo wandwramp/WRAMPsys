@@ -200,7 +200,7 @@ module CPU(
 		.imm_16_out(imm_16_out),                    // in
 		.imm_20_out(imm_20_out),                    // in
 		.sign_extend(sign_extend_imm),              // in
-		.imm_out(A_bus),                            // out
+		.a_out(A_bus),                            // out
 		.current_instruction(current_instruction)   // out
 	);
 

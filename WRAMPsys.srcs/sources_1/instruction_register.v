@@ -11,11 +11,18 @@ module instruction_register (
   input             imm_20_out,
   input             sign_extend,
   
-  output reg [31:0] imm_out,
+  output     [31:0] a_out, //A_BUS
   output     [31:0] current_instruction
   );
-
+    
+    
+    
+    
 	reg [31:0] ir_register;
+	reg [31:0] imm_out;
+	
+	assign a_out = ( imm_16_out || imm_20_out ) ? imm_out : 32'hzzzzzzzz;
+	
 	assign current_instruction = ir_register;
 
 	// Controls imm_out depending on input signals.
@@ -36,7 +43,6 @@ module instruction_register (
 				imm_out = {12'b0,ir_register[19:0]};					//load raw immediate
 			end
 		end
-		else imm_out = 32'hzzzzzzzz;
 	end
 
 	always @(posedge clk, negedge rst_n) begin
