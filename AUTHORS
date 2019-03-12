@@ -1,0 +1,6 @@
+WRAMP was originally written in VHDL by Dean Armstrong in 2002 as part of an undergraduate
+degree at the University of Waikato.
+
+WRAMP was rewritten into WRAMPsys in Verilog for use with the Basys3 boards by 
+Daniel Oosterwijk & Tyler Marriner in 2018 at the University of Waikato on behalf 
+of WAND.
