@@ -1,5 +1,23 @@
-// Daniel Oosterwijk & Tyler Marriner
-// University of Waikato, 2018
+/*
+########################################################################
+# This file is part of WRAMPsys, a Verilog implimentaion of WRAMP.
+#
+# Copyright (C) 2019 The University of Waikato, Hamilton, New Zealand.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+########################################################################
+*/
 
 module instruction_register (
   input             rst_n,
@@ -11,11 +29,18 @@ module instruction_register (
   input             imm_20_out,
   input             sign_extend,
   
-  output reg [31:0] imm_out,
+  output     [31:0] a_out, //A_BUS
   output     [31:0] current_instruction
   );
-
+    
+    
+    
+    
 	reg [31:0] ir_register;
+	reg [31:0] imm_out;
+	
+	assign a_out = ( imm_16_out || imm_20_out ) ? imm_out : 32'hzzzzzzzz;
+	
 	assign current_instruction = ir_register;
 
 	// Controls imm_out depending on input signals.
@@ -36,17 +61,14 @@ module instruction_register (
 				imm_out = {12'b0,ir_register[19:0]};					//load raw immediate
 			end
 		end
-		else imm_out = 32'hzzzzzzzz;
 	end
 
-	always @(posedge clk, negedge rst_n) begin
+	always @(posedge clk) begin
 		if (!rst_n) begin
 			ir_register = 32'b0;
 		end
-		else if (clk) begin
-			if (write_enable) begin				//update ir with new ins
-				ir_register = write_data;
-			end
+        if (write_enable) begin				//update ir with new ins
+            ir_register = write_data;
 		end
 	end
 
